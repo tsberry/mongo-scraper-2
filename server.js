@@ -2,10 +2,8 @@ var mongoose = require("mongoose");
 var express = require("express");
 var exphbs = require("express-handlebars");
 var bodyParser = require("body-parser");
-var router = require("./routes/router");
 
 var app = express();
-app.use(router);
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
@@ -24,6 +22,9 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
+
+var router = require("./routes/router");
+app.use(router);
 
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT + "!");

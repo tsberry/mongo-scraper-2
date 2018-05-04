@@ -1,5 +1,18 @@
-{{headline}}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="https://animenewsnetwork.com{{link}}">
+            <h3 class="panel-title">{{headline}}</h3>
+        </a>
+    </div>
+    <div class="panel-body">
+        <p>{{summary}}</p>
+        {{#each comments}} {{> comment}} {{/each}}
+        <div class="form-group">
+            <form data-id="{{_id}}" class="comment-form">
+                <textarea class="form-control comment-text"></textarea>
+                <input class="form-control btn btn-success" type="submit" value="Submit Comment">
+            </form>
+        </div>
 
-{{summary}}
-
-{{link}}
+    </div>
+</div>
