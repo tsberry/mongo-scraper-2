@@ -22,6 +22,10 @@ var articleSchema = new Schema({
         type: String,
         required: true
     },
+    pinned: {
+        type: Boolean,
+        default: false
+    },
     comments: [commentSchema]
 });
 

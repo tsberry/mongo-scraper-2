@@ -7,7 +7,13 @@ var router = express.Router();
 
 router.get("/", function (req, res) {
     Article.find({}, function (error, docs) {
-        res.render("index", { articles: docs });
+        res.render("index", { articles: docs});
+    });
+});
+
+router.get("/pinned", function (req, res) {
+    Article.find({pinned: true}, function (error, docs) {
+        res.render("pinned", { articles: docs});
     });
 });
 
@@ -25,6 +31,16 @@ router.get("/scrape", function (req, res) {
 
         saveArticles(articles, 0, res);
     });
+});
+
+router.put("/pinned/:id", function (req, res) {
+    Article.findOneAndUpdate({ _id: req.params.id}, {pinned: true})
+    .then(function (dbArticle) {
+        res.json(dbArticle);
+    })
+    .catch(function (error) {
+        res.json(error);
+    })
 });
 
 router.post("/comments", function (req, res) {

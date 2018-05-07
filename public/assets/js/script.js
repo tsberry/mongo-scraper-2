@@ -9,7 +9,14 @@ $(function () {
         $.ajax("/delete", {type: "DELETE"}).then(function (data) {
             location.reload();
         })
-    })
+    });
+
+    $(".pin-button").on("click", function () {
+        $.ajax(`/pinned/${$(this).data("id")}`, {type: "PUT"})
+        .then(function (data) {
+            location.reload();
+        })
+    });
 
     $(".comment-form").submit(function (event) {
         event.preventDefault();
