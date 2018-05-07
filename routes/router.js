@@ -28,16 +28,15 @@ router.get("/scrape", function (req, res) {
 });
 
 router.post("/comments", function (req, res) {
-    console.log(req.body);
     var id = req.body.id;
     var text = req.body.text;
     Article.findOne({ _id: id })
         .then(function (dbArticle) {
             dbArticle.comments.push({ text: text });
             dbArticle.save()
-                .then(function () {
+                .then(function (data) {
                     console.log("Success! Added comment: " + text);
-                    res.end();
+                    res.json(data);
                 })
                 .catch(function (error) {
                     res.json(error);
@@ -46,6 +45,16 @@ router.post("/comments", function (req, res) {
         .catch(function (error) {
             res.json(error);
         });
+});
+
+router.delete("/delete", function (req, res) {
+    Article.remove()
+    .then(function () {
+        res.json({"message": "Articles deleted!"});
+    })
+    .catch(function (error) {
+        res.json(error);
+    })
 });
 
 function saveArticles(articles, i, res) {
